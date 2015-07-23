@@ -1,6 +1,6 @@
 // list of current browsers
 // http://fresh-browsers.com/
-function (window, document, undefined) {
+(function (window, document, undefined) {
   "use strict";
 
   var getBrowser = function () {
@@ -96,7 +96,7 @@ function (window, document, undefined) {
     };
   };
 
-  getDevice = function () {
+  var getDevice = function () {
     var i,
         navAppVersion = navigator.appVersion,
         navUserAgent = navigator.userAgent,
@@ -167,7 +167,7 @@ function (window, document, undefined) {
       }
   };
 
-  getOS = function () {
+  var getOS = function () {
     var navAppVersion = navigator.appVersion;
     var navUserAgent = navigator.userAgent;
     var osVersion = "unknown";
@@ -235,7 +235,7 @@ function (window, document, undefined) {
     };
   };
 
-  getBrowserFeatures = function () {
+  var getBrowserFeatures = function () {
     
       // cookie support
     var cookieEnabled = false;
@@ -259,11 +259,25 @@ function (window, document, undefined) {
     };
   }; 
 
-  return {
+  var clientInfo = {
     userAgent: navigator.userAgent,
     browser: getBrowser(),
     browserFeatures: getBrowserFeatures(),
     device: getDevice(),
     os: getOS()
   };
-}
+  //CommonJS  
+  if (typeof require === 'function' && typeof module === 'object' && module && typeof exports === 'object' && exports){
+    module.exports = clientInfo;
+  }
+  // AMD 
+  else if (typeof define === 'function' && typeof define.amd == 'object'&& define.amd){
+    define(function(){
+      return clientInfo; 
+    });
+  }
+  //Global
+  else{
+    window.clientInfo = clientInfo;
+  }
+})(window, document);

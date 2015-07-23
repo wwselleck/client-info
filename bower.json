@@ -1,0 +1,35 @@
+{
+  "name": "client-info",
+  "version": "0.1.0",
+  "homepage": "https://github.com/wwselleck/supportedBrowser.js",
+  "authors": [
+    "Todd Horst",
+    "Weston Selleck"
+  ],
+  "description": "Get client info such as browser and operating system info.",
+  "main": "./src/browserInfo.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "client",
+    "browser",
+    "operating",
+    "system",
+    "info",
+    "navigator",
+    "global",
+    "user",
+    "agent"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
