@@ -170,8 +170,6 @@
   var getOS = function () {
     var navAppVersion = navigator.appVersion;
     var navUserAgent = navigator.userAgent;
-    var osVersion = "unknown";
-    var os = "unknown";
     // system
     
     var clientStrings = [
@@ -202,36 +200,37 @@
       { s: 'OS/2', r: /OS\/2/ },
       { s: 'Search Bot', r: /(nuhk|Googlebot|Yammybot|Openbot|Slurp|MSNBot|Ask Jeeves\/Teoma|ia_archiver)/ }
     ];
+
     for(var i = 0; i < clientStrings.length; i++){
       var clientString = clientStrings[i];
       if (clientString.r.test(navUserAgent)) {
-        os = clientString.s;
+        var os = clientString.s;
+        var osVersion = 'unknown';
+        if (/Windows/.test(os)) {
+          console.log(/Windows (.*)/.exec(os));
+          osVersion = /Windows (.*)/.exec(os)[1];
+          os = 'Windows';
+        }
+        else if(os === 'Mac OS X'){
+          osVersion = /Mac OS X (10[\.\_\d]+)/.exec(navUserAgent)[1]; 
+        }
+        else if(os === 'Android'){
+          osVersion = /Android ([\.\_\d]+)/.exec(navUserAgent)[1];
+        }
+        else if(os === 'iOS'){
+          osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(navAppVersion);
+          osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
+        }
+      
+        return {
+          name: os,
+          versionString: osVersion
+        };
       }
     }
-
-    if (/Windows/.test(os)) {
-      osVersion = /Windows (.*)/.exec(os)[1];
-      os = 'Windows';
-    }
-
-    switch (os) {
-      case 'Mac OS X':
-        osVersion = /Mac OS X (10[\.\_\d]+)/.exec(navUserAgent)[1];
-        break;
-
-      case 'Android':
-        osVersion = /Android ([\.\_\d]+)/.exec(navUserAgent)[1];
-        break;
-
-      case 'iOS':
-        osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(navAppVersion);
-        osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
-        break;
-    }
-
     return {
-      name: os,
-      versionString: osVersion
+      name: "unknown",
+      versionString: "unknown"
     };
   };
 
