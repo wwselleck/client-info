@@ -207,7 +207,6 @@
         var os = clientString.s;
         var osVersion = 'unknown';
         if (/Windows/.test(os)) {
-          console.log(/Windows (.*)/.exec(os));
           osVersion = /Windows (.*)/.exec(os)[1];
           os = 'Windows';
         }
