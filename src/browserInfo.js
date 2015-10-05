@@ -9,11 +9,11 @@
         browser = navigator.appName,                        // browser string [Netscape]
         version = '' + parseFloat(navigator.appVersion),    // version string (5) [5.0 (Windows)]
         majorVersion = parseInt(navigator.appVersion, 10);   // version number (5) [5.0 (Windows)]
-    
+
     var nameOffset, // used to detect other browsers name
         verOffset,  // used to trim out version
         ix;          // used to trim string
-    
+
     // Opera
     if ((verOffset = navUserAgent.indexOf('Opera')) !== -1) {
       browser = 'Opera';
@@ -21,7 +21,7 @@
       if ((verOffset = navUserAgent.indexOf('Version')) !== -1) {
         version = navUserAgent.substring(verOffset + 8);
       }
-    } 
+    }
 
     //MSIE
     else if ((verOffset = navUserAgent.indexOf('MSIE')) !== -1) {
@@ -37,7 +37,13 @@
       if ((verOffset = navUserAgent.indexOf('rv:')) !== -1) {
         version = navUserAgent.substring(verOffset + 3);
       }
-    } 
+    }
+
+    //MS Edge
+    else if ((verOffset = navUserAgent.indexOf('Edge')) !== -1) {
+      browser = 'Microsoft Edge';
+      version = navUserAgent.substring(verOffset + 5);
+    }
 
     // Chrome
     else if ((verOffset = navUserAgent.indexOf('Chrome')) !== -1) {
@@ -48,8 +54,14 @@
     // Chrome on iPad identifies itself as Safari. However it does mention CriOS.
     else if ((verOffset = navUserAgent.indexOf('CriOS')) !== -1) {
       browser = 'Chrome';
-      version = navUserAgent.substring(verOffset + 6);        
-    } 
+      version = navUserAgent.substring(verOffset + 6);
+    }
+
+    //PhantomJS
+    else if ((verOffset = navUserAgent.indexOf('PhantomJS')) !== -1) {
+      browser = 'PhantomJS';
+      version = navUserAgent.substring(verOffset + 10);
+    }
 
     // Safari
     else if ((verOffset = navUserAgent.indexOf('Safari')) !== -1) {
@@ -58,13 +70,13 @@
       if ((verOffset = navUserAgent.indexOf('Version')) !== -1) {
         version = navUserAgent.substring(verOffset + 8);
       }
-    } 
+    }
 
     // Firefox
     else if ((verOffset = navUserAgent.indexOf('Firefox')) !== -1) {
       browser = 'Firefox';
       version = navUserAgent.substring(verOffset + 8);
-    } 
+    }
 
     // Other browsers
     else if ((nameOffset = navUserAgent.lastIndexOf(' ') + 1) < (verOffset = navUserAgent.lastIndexOf('/'))) {
@@ -75,12 +87,10 @@
       }
     }
 
-
     // trim the version string
     if ((ix = version.indexOf(';')) !== -1) version = version.substring(0, ix);
     if ((ix = version.indexOf(' ')) !== -1) version = version.substring(0, ix);
     if ((ix = version.indexOf(')')) !== -1) version = version.substring(0, ix);
-
 
     // why is this here?
     majorVersion = parseInt('' + version, 10);
@@ -151,7 +161,7 @@
           return ret;
         }
       }
-      
+
       for(i = 0; i < phoneStrings.length; i++){
         var phoneString = phoneStrings[i];
         if (phoneStrings[i].r.test(navUserAgent)) {
@@ -160,7 +170,7 @@
           return ret;
         }
       }
-      
+
       if(/Mobile|mini|Fennec|Android/.test(navAppVersion)){
         ret.deviceType = 'mobile';
         return ret;
@@ -171,7 +181,7 @@
     var navAppVersion = navigator.appVersion;
     var navUserAgent = navigator.userAgent;
     // system
-    
+
     var clientStrings = [
       { s: 'Windows 3.11', r: /Win16/ },
       { s: 'Windows 95', r: /(Windows 95|Win95|Windows_95)/ },
@@ -185,6 +195,7 @@
       { s: 'Windows 7', r: /(Windows 7|Windows NT 6.1)/ },
       { s: 'Windows 8.1', r: /(Windows 8.1|Windows NT 6.3)/ },
       { s: 'Windows 8', r: /(Windows 8|Windows NT 6.2)/ },
+      { s: 'Windows 10', r: /(Windows NT 10.0)/ },
       { s: 'Windows NT 4.0', r: /(Windows NT 4.0|WinNT4.0|WinNT|Windows NT)/ },
       { s: 'Windows ME', r: /Windows ME/ },
       { s: 'Android', r: /Android/ },
@@ -212,7 +223,7 @@
           os = 'Windows';
         }
         else if(os === 'Mac OS X'){
-          osVersion = /Mac OS X (10[\.\_\d]+)/.exec(navUserAgent)[1]; 
+          osVersion = /Mac OS X (10[\.\_\d]+)/.exec(navUserAgent)[1];
         }
         else if(os === 'Android'){
           osVersion = /Android ([\.\_\d]+)/.exec(navUserAgent)[1];
@@ -221,7 +232,7 @@
           osVersion = /OS (\d+)_(\d+)_?(\d+)?/.exec(navAppVersion);
           osVersion = osVersion[1] + '.' + osVersion[2] + '.' + (osVersion[3] | 0);
         }
-      
+
         return {
           name: os,
           versionString: osVersion
@@ -235,7 +246,7 @@
   };
 
   var getBrowserFeatures = function () {
-    
+
       // cookie support
     var cookieEnabled = false;
     try {
@@ -256,7 +267,7 @@
       },
       allowsCookies:cookieEnabled
     };
-  }; 
+  };
 
   var clientInfo = {
     userAgent: navigator.userAgent,
@@ -265,14 +276,14 @@
     device: getDevice(),
     os: getOS()
   };
-  //CommonJS  
+  //CommonJS
   if (typeof require === 'function' && typeof module === 'object' && module && typeof exports === 'object' && exports){
     module.exports = clientInfo;
   }
-  // AMD 
+  // AMD
   else if (typeof define === 'function' && typeof define.amd == 'object'&& define.amd){
     define(function(){
-      return clientInfo; 
+      return clientInfo;
     });
   }
   //Global
