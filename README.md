@@ -19,8 +19,8 @@ This isn't comprehensive feature detection library like https://github.com/Moder
 
 Why use this
 -----------
-We support certain browsers (the main ones) and would like to inform users gently that they aren't supported and things may not work. 
-This doesn't block access. This doesn't hinder the users experience. Simply states that unless they move to a supported browser, we 
+We support certain browsers (the main ones) and would like to inform users gently that they aren't supported and things may not work.
+This doesn't block access. This doesn't hinder the users experience. Simply states that unless they move to a supported browser, we
 can't guarantee a good user experience.
 
 This helps manage expectations for users as well as aids in our support center in diagnosing issues.
@@ -34,10 +34,11 @@ supportedBrowser - This is just a simple function. Given what you want and what 
 
 What are the main ones
 ----------
-Windows xp,vista,7,8
+Windows xp,vista,7,8,10
 * Chrome
 * Firefox
 * Internet Explorer (>=8)
+* Edge
 
 OSX 10.8, 10.9
 * Safari
@@ -46,11 +47,14 @@ OSX 10.8, 10.9
 
 Android
 * Android Browser 2.3 (Gingerbread)
-* Chrome 4.0 (IceCream Sandwhich), 4.1-4.3 (Jelly Bean), 4.4 (KitKat)
-* Firefox 2.3 (Gingerbread), 4.0 (IceCream Sandwhich), 4.1-4.3 (Jelly Bean), 4.4 (KitKat)
+* Chrome 4.0 (Ice Cream Sandwich), 4.1-4.3 (Jelly Bean), 4.4 (KitKat)
+* Firefox 2.3 (Gingerbread), 4.0 (Ice Cream Sandwich), 4.1-4.3 (Jelly Bean), 4.4 (KitKat)
 
 iOS 6/7
 * Safari
+
+Headless Testing
+* PhantomJS
 
 To Use
 -----------
