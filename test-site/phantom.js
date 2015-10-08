@@ -3,6 +3,7 @@ var browserInfo = require("../src/browserInfo");
 page.open('about:blank', function(status) {
     console.log("Status: " + status);
 	if (status === "success") {
+		console.log("UA String:", window.navigator.userAgent);
 		console.log("browserInfo:\n" + JSON.stringify(browserInfo, null, 2));
 	}
 	phantom.exit();

@@ -222,7 +222,7 @@
           os = 'Windows';
         }
         else if(os === 'Mac OS X'){
-          osVersion = /Mac OS X (10[\.\_\d]+)/.exec(navUserAgent)[1];
+          osVersion = /Mac OS X\s?(10[\.\_\d]+)?/.exec(navUserAgent)[1];
         }
         else if(os === 'Android'){
           osVersion = /Android ([\.\_\d]+)/.exec(navUserAgent)[1];
