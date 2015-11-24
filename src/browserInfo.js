@@ -5,14 +5,14 @@
 
   var getBrowser = function () {
     // initial values for checks
-    var navUserAgent = navigator.userAgent,                         // store user agent [Mozilla/5.0 (Windows NT 6.1; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0]
+    var navUserAgent = navigator.userAgent,                 // store user agent [Mozilla/5.0 (Windows NT 6.1; WOW64; rv:27.0) Gecko/20100101 Firefox/27.0]
         browser = navigator.appName,                        // browser string [Netscape]
         version = '' + parseFloat(navigator.appVersion),    // version string (5) [5.0 (Windows)]
-        majorVersion = parseInt(navigator.appVersion, 10);   // version number (5) [5.0 (Windows)]
+        majorVersion = parseInt(navigator.appVersion, 10);  // version number (5) [5.0 (Windows)]
 
     var nameOffset, // used to detect other browsers name
         verOffset,  // used to trim out version
-        ix;          // used to trim string
+        ix;         // used to trim string
 
     // Opera
     if ((verOffset = navUserAgent.indexOf('Opera')) !== -1) {
@@ -175,6 +175,7 @@
         ret.deviceType = 'mobile';
         return ret;
       }
+      return ret;
   };
 
   var getOS = function () {
